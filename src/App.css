@@ -1,6 +1,4 @@
-.App {
-  text-align: center;
-}
+
 
 .App-logo {
   height: 40vmin;
@@ -35,4 +33,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.akki{
+  margin-top: 10px;
+}
+
+.border{
+  border: #282c34;
+  border-style: solid;
+  border-width: thin;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0px;
 }
