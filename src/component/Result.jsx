@@ -4,13 +4,13 @@ function randomNumber(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-const color =["blue", "green"];
+const color =["pink lighten-4", "yellow accent-2"];
 
 function colorSelection(index){
     if(index>=0 && index<=5)
-        return "red";
-    var num = index - 6;
-    if((num/9)%2 == 0)
+        return "blue lighten-4";
+    var num = parseInt((index - 6)/9);
+    if(num%2 == 0)
         return  color[0];
     else
         return color[1];
@@ -145,37 +145,46 @@ export default class Result extends Component {
     }
 
     renderBody.push(
-        <div className="row no-bottom-margin">
+        <div className="row no-bottom-margin lime accent-3">
             <div className="col border s7">Total Quantity</div>
             <div className="col border s2">{String(resultsTotal.toFixed(2))}</div>
             <div className="col border s3">{String(resultsTotal.toFixed(2))}</div>
         </div>
     )
     renderBody.push(
-        <div className="row no-bottom-margin">
+        <div className="row no-bottom-margin lime accent-3">
             <div className="col border s9">@rate</div>
             <div className="col border s3">{constants.rate}</div>
         </div>
     )
     renderBody.push(
-        <div className="row no-bottom-margin">
+        <div className="row no-bottom-margin lime accent-3">
             <div className="col border s9">Excavation Amount</div>
             <div className="col border s3">{excavation}</div>
         </div>
     )
     mateWater=== "true" && renderBody.push(
-        <div className="row no-bottom-margin">
+        <div className="row no-bottom-margin  blue lighten-3">
             <div className="col border s9">Mate Amount</div>
             <div className="col border s3">{mateVal}</div>
         </div>
     )
     mateWater=== "true" && renderBody.push(
-        <div className="row no-bottom-margin">
+        <div className="row no-bottom-margin  blue lighten-3">
             <div className="col border s9">Water Amount</div>
             <div className="col border s3">{mateVal}</div>
         </div>
     )
     
+    renderBody.push(
+        <Fragment>
+        <div className="row no-bottom-margin"></div>
+        <div className="row no-bottom-margin orange lighten-2">
+            <div className="col border s9">Total Amount</div>
+            <div className="col border s3">{excavation+(2*mateVal)}</div>
+        </div>
+        </Fragment>
+    )
     renderBody.push(
         <Fragment>
         <div className="row no-bottom-margin"></div>
