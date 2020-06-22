@@ -20,6 +20,8 @@ export default class AKKI extends Component {
   }
   componentDidMount = () => {
     M.AutoInit();
+    var elems = document.querySelectorAll('.modal');
+    M.Modal.init(elems);
   };
 
   handleSubmit = (e) => {
@@ -43,11 +45,26 @@ export default class AKKI extends Component {
     })
   }
 
+  renderModal = () => {
+    return (
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Are you sure you want to re-calculate??</h4>
+        </div>
+        <div class="modal-footer">
+          <span class="btn modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Yes</span>
+          <span class="btn modal-close waves-effect waves-green btn-flat">No</span>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="akki">
+        {this.renderModal()}
         <div className="row section container">
-          <form className="col s12" onSubmit={this.handleSubmit}>
+          <form className="col s12">
             <div className="input-field col s12">
               <input
                 placeholder="Amount"
@@ -185,9 +202,9 @@ export default class AKKI extends Component {
             </div>
 
             <button
-              className="btn waves-effect waves-light"
-              type="submit"
-              name="action"
+              className="btn waves-effect waves-light modal-trigger"
+              data-target={this.state.showResult? "modal1":null}
+              onClick={!this.state.showResult?this.handleSubmit:()=>{}}
             >
               Calculate
               <i className="material-icons right">send</i>
