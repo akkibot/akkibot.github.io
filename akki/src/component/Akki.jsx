@@ -6,9 +6,11 @@ export default class AKKI extends Component {
   constructor() {
     super();
     this.state = {
-      amount : 40000,
+      amount: 40000,
       days: 6,
       mateWater: "true",
+      perDayWage: 193,
+      taskRate: 120.50,
       minLength: 12,
       maxLength: 17,
       minWidth: 12,
@@ -37,8 +39,17 @@ export default class AKKI extends Component {
       showResult: false
     });
   };
+ 
+  handleWageChange = (e) => {
+    var taskRate = ((((parseFloat(e.target.value))/159)*110.30)*(0.9)).toFixed(2);
+    this.setState({
+      [e.target.name]: parseFloat(e.target.value),
+      taskRate: taskRate,
+      showResult: false
+    });
+  };
 
-  handleRadio = (e) => {
+  handleMateWaterRadio = (e) => {
     this.setState({
       mateWater: e.target.value,
       showResult: false
@@ -78,25 +89,43 @@ export default class AKKI extends Component {
               <label className="active" htmlFor="amount">Amount</label>
             </div>
 
+            {/* Per Day Wage */}
+              <div className="input-field col s12">
+                <input
+                  placeholder="Per Day Wage"
+                  id="perDayWage"
+                  name="perDayWage"
+                  type="number"
+                  value={this.state.perDayWage}
+                  onChange={this.handleWageChange}
+                  className="validate"
+                  min={1}
+                />
+                <label className="active" htmlFor="perDayWage">Per Day Wage</label>
+              </div>
+              {this.state.perDayWage ? <p>Task Rate: {this.state.taskRate}</p>:null}
+
+
+            {/* Mate Water */}
             <div className="col left s9">
-              <h6>Weather to Calculate Mate/Water</h6>
+              <h6>Whether to Calculate Mate/Water</h6>
             </div>
             <div className="input-field col s3">
               <span>
                 <label>
-                  <input name="group1" className="with-gap" type="radio" value={true} onChange={this.handleRadio} checked={this.state.mateWater === "true"}/>
+                  <input name="group2" className="with-gap" type="radio" value={true} onChange={this.handleMateWaterRadio} checked={this.state.mateWater === "true"} />
                   <span>Yes</span>
                 </label>
-              </span> 
+              </span>
               <span>
                 <label>
-                  <input name="group1" className="with-gap" type="radio" value={false} onChange={this.handleRadio} checked={this.state.mateWater === "false"}/>
+                  <input name="group2" className="with-gap" type="radio" value={false} onChange={this.handleMateWaterRadio} checked={this.state.mateWater === "false"} />
                   <span>No</span>
                 </label>
               </span>
             </div>
 
-            {this.state.mateWater==="true" ? (
+            {this.state.mateWater === "true" ? (
               <div className="input-field col s12">
                 <input
                   placeholder="No of Days"
@@ -110,7 +139,7 @@ export default class AKKI extends Component {
                 />
                 <label className="active" htmlFor="days">No of Days</label>
               </div>
-            ):null}
+            ) : null}
 
             <div className="minmaxContainer">
               <div className="row">
@@ -160,7 +189,7 @@ export default class AKKI extends Component {
                   <label className="active" htmlFor="days">Min Height</label>
                 </div>
               </div>
-            
+
               <div className="row">
                 <div className="col s4">
                   <input
@@ -202,9 +231,9 @@ export default class AKKI extends Component {
             </div>
 
             <button
-              className="btn waves-effect waves-light modal-trigger"
-              data-target={this.state.showResult? "modal1":null}
-              onClick={!this.state.showResult?this.handleSubmit:()=>{}}
+              className="btn waves-effect waves-light modal-trigger purple darken-2"
+              data-target={this.state.showResult ? "modal1" : null}
+              onClick={!this.state.showResult ? this.handleSubmit : () => { }}
             >
               Calculate
               <i className="material-icons right">send</i>
@@ -212,7 +241,7 @@ export default class AKKI extends Component {
           </form>
         </div>
         {this.state.showResult && <div className="row section">
-          <Result rawData={this.state}/>
+          <Result rawData={this.state} />
         </div>}
       </div>
     );

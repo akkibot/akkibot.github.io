@@ -28,14 +28,11 @@ export default class Result extends Component {
             maxWidth,
             minHeight,
             maxHeight,
+            taskRate,
+            perDayWage
         } = this.props.rawData;
 
-        let constants = {
-            perDayWage: 190,
-            rate: 118.62,
-        };
-
-        constants['mwQuantity'] = Math.round(amount / (days * constants.perDayWage * 50));
+        const mwQuantity = Math.round(amount / (days * perDayWage * 50));
 
         let renderBody = [];
         renderBody.push(
@@ -49,8 +46,7 @@ export default class Result extends Component {
             </div>
         )
 
-        var mateVal = Math.round(constants.mwQuantity * constants.perDayWage * days);
-        // var mateVal = mate * constants.perDayWage * days;
+        var mateVal = Math.round(mwQuantity * perDayWage * days);
         console.log("mateVal", mateVal);
 
         var waterVal = mateVal;
@@ -67,7 +63,7 @@ export default class Result extends Component {
             console.log("excavation", excavation);
         }
 
-        var quantity = parseFloat(excavation / constants.rate).toFixed(2);
+        var quantity = parseFloat(excavation / taskRate).toFixed(2);
         console.log("quantity", quantity);
 
         let resultsTotal = 0;
@@ -156,7 +152,7 @@ export default class Result extends Component {
         renderBody.push(
             <div className="row no-bottom-margin lime accent-3">
                 <div className="col border s9">@rate</div>
-                <div className="col border s3">{constants.rate}</div>
+                <div className="col border s3">{taskRate}</div>
             </div>
         )
         renderBody.push(
@@ -167,13 +163,13 @@ export default class Result extends Component {
         )
         mateWater === "true" && renderBody.push(
             <div className="row no-bottom-margin  blue lighten-3">
-                <div className="col border s9">Mate Amount     ({`${constants.mwQuantity}  *  ${constants.perDayWage}  *  ${days}`})</div>
+                <div className="col border s9">Mate Amount     ({`${mwQuantity}  *  ${perDayWage}  *  ${days}`})</div>
                 <div className="col border s3">{mateVal}</div>
             </div>
         )
         mateWater === "true" && renderBody.push(
             <div className="row no-bottom-margin  blue lighten-3">
-                <div className="col border s9">Water Amount     ({`${constants.mwQuantity}  *  ${constants.perDayWage}  *  ${days}`})</div>
+                <div className="col border s9">Water Amount     ({`${mwQuantity}  *  ${perDayWage}  *  ${days}`})</div>
                 <div className="col border s3">{mateVal}</div>
             </div>
         )
